@@ -1,41 +1,61 @@
-# Rick And Morty requirements
+# Rick and Morty API
 
-### Business requirements
+## Overview
 
-- Task: Create API. It should contain two methods:
+This repository contains a RESTful API for accessing information about characters from the popular animated series Rick & Morty. The API provides three main endpoints: one for generating random character details, another for searching characters by name, and the third for initializing data during application startup.
 
-1. The request randomly generates a wiki about one character in the universe the animated series Rick & Morty.
-   Response example:
+## Business Requirements
 
-    ```json
-    {
-      "id": 1,
-      "externalId": "1",
-      "name": "Rick Sanchez",
-      "status": "Alive",
-      "gender": "Male"
-    }
-    ```
-    
-    NOTE: `externalId` field should save the original character ID received from the external API. `id` field should
-    represent the identifier of entire `Character` entity, that is associated with internal DB.
+### 1. Random Character Generation
 
-2. The request takes a string as an argument, and returns a list of all characters whose name contains the search
-   string.
-   During the application start, the web application downloads data from a third-party service to the internal database.
-   Implemented API requests must work with a local database (i.e. fetch data from a database).
+- **Endpoint:** `GET /api/characters/random`
+- **Example Response:**
 
-- What to use:
+```json
+{
+  "id": 1,
+  "externalId": "1",
+  "name": "Rick Sanchez",
+  "status": "Alive",
+  "gender": "Male"
+}
+```
 
-1. You must use [public API](https://rickandmortyapi.com/documentation/#rest) (you should use REST API).
-2. All data from the public API should be fetched once, and only once, when the Application context is created
+### 2. Character Search
 
-### Tech Requirements
+- **Endpoint:** `GET /api/characters/search?name={searchString}`
+- **Response:**
+  - Returns a list of characters with names containing the provided search string.
 
-- Use MySQL DB in your app.
-- Use H2 DB in your test configuration (It is already configured in the `src/test/resources/application.properties`
-  file).
-- Keep identical set of params in the `src/main/resources/application.properties`
-  and `src/test/resources/application.properties` files. In other case you may face a problem with Application Context
-  creation during the `mvn test` phase.
-- Requests must be documented using Swagger.
+This endpoint allows users to search for characters based on a provided name substring. The response provides a list of characters matching the search criteria, including their respective details.
+
+### 3. Character by ID
+
+- **Endpoint:** `GET /api/characters/{id}`
+- **Response:**
+    - Returns details of the character with the specified ID.
+
+This endpoint allows users to retrieve specific details of a character by providing their unique identifier. The response includes information such as the character's name, status, gender, etc.
+
+### 4. Data Initialization
+
+- During application startup, data is fetched from a third-party service and stored in the internal MySQL database.
+
+### 5. Data not Initialization
+
+- You could send any request for rick and morty api that does not involve saving the data to the database. Instead, it converts the fetched data into objects for immediate use.
+
+## Tech Requirements
+
+- **Database:**
+  - Utilizes MySQL for the main application.
+  - H2 database is configured for testing purposes (`src/test/resources/application.properties`).
+
+- **API Documentation:**
+  - Swagger is integrated to document API requests and responses.
+
+## Usage
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/slaybrute/rick-morty-api.git
