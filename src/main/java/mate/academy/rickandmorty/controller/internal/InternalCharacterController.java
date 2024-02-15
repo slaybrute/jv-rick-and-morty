@@ -8,6 +8,7 @@ import mate.academy.rickandmorty.service.server.CharacterServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,7 +19,7 @@ public class InternalCharacterController {
 
     @GetMapping("/by-name")
     @Operation(summary = "Get characters by name", description = "Get list of characters by name")
-    List<Character> getCharactersByName(String name) {
+    List<Character> getCharactersByName(@RequestParam String name) {
         return characterServer.findByName(name);
     }
 

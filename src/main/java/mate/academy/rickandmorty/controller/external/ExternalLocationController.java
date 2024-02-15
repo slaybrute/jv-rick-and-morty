@@ -8,10 +8,7 @@ import mate.academy.rickandmorty.dto.external.location.LocationDto;
 import mate.academy.rickandmorty.dto.external.location.LocationSearchParameters;
 import mate.academy.rickandmorty.dto.external.location.LocationsDto;
 import mate.academy.rickandmorty.service.client.LocationClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +33,8 @@ public class ExternalLocationController {
     @GetMapping("/search")
     @Operation(summary = "Search locations by parameters",
             description = "Search locations by name, type, dimension")
-    public LocationsDto getLocationsByParams(LocationSearchParameters locationSearchParameters)
+    public LocationsDto getLocationsByParams(
+            @RequestParam LocationSearchParameters locationSearchParameters)
             throws IOException, InterruptedException {
         return locationClient.getLocationByParams(locationSearchParameters);
     }

@@ -8,10 +8,7 @@ import mate.academy.rickandmorty.dto.external.character.CharacterDto;
 import mate.academy.rickandmorty.dto.external.character.CharacterSearchParameters;
 import mate.academy.rickandmorty.dto.external.character.CharactersDto;
 import mate.academy.rickandmorty.service.client.CharacterClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +33,8 @@ public class ExternalCharacterController {
     @GetMapping("/search")
     @Operation(summary = "Search characters by parameters",
             description = "Search characters by name, status, species, type, gender")
-    public CharactersDto getCharactersByParams(CharacterSearchParameters characterSearchParameters)
+    public CharactersDto getCharactersByParams(
+            @RequestParam CharacterSearchParameters characterSearchParameters)
             throws IOException, InterruptedException {
         return characterClient.getCharactersByParams(characterSearchParameters);
     }

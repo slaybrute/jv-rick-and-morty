@@ -8,10 +8,7 @@ import mate.academy.rickandmorty.dto.external.episode.EpisodeDto;
 import mate.academy.rickandmorty.dto.external.episode.EpisodeSearchParameters;
 import mate.academy.rickandmorty.dto.external.episode.EpisodesDto;
 import mate.academy.rickandmorty.service.client.EpisodeClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +33,8 @@ public class ExternalEpisodeController {
     @GetMapping("/search")
     @Operation(summary = "Search episodes by parameters",
             description = "Search episodes by name, episode")
-    public EpisodesDto getEpisodesByParams(EpisodeSearchParameters episodeSearchParameters)
+    public EpisodesDto getEpisodesByParams(
+            @RequestParam EpisodeSearchParameters episodeSearchParameters)
             throws IOException, InterruptedException {
         return episodeClient.getEpisodesByParams(episodeSearchParameters);
     }
